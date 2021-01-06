@@ -71,7 +71,7 @@ object HashedCredential {
         case _ => throw new IllegalArgumentException(s"Illegal credential format.")
       }
       @inline def hex(hex: String): Array[Byte] =
-        hex.sliding(2, 2).toArray.map(Integer.parseInt(_, 16).toByte)
+        hex.toSeq.sliding(2, 2).toArray.map(x => Integer.parseInt(x.toString, 16).toByte)
       apply(id, it, hex(st), hex(hs))
     } catch {
       case e: NumberFormatException =>
